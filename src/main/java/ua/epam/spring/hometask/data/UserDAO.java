@@ -30,12 +30,11 @@ public class UserDAO implements UserService {
         }
     }
 
-    @Nullable
     @Override
     public User getById(@Nonnull Long id) {
         return users.values().stream()
                 .filter(user -> user.getId().equals(id))
-                .findFirst().orElse(null);
+                .findFirst().orElse(new User());
     }
 
     @Nonnull
