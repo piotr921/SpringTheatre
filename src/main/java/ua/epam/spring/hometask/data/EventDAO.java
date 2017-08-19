@@ -5,8 +5,12 @@ import ua.epam.spring.hometask.service.EventService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EventDAO implements EventService {
 
@@ -49,5 +53,23 @@ public class EventDAO implements EventService {
         return events.values().stream()
                 .filter(event -> event.getName().equals(name))
                 .findFirst().orElse(null);
+    }
+
+    @Nonnull
+    @Override
+    public Set<Event> getForDateRange(@Nonnull LocalDate from, @Nonnull LocalDate to) {
+        return events.values().stream()
+                .filter(event ->
+                        !event.getAirDates().subSet(from.atStartOfDay(), true, to.atTime(23,59), true).isEmpty())
+                .collect(Collectors.toSet());
+    }
+
+    @Nonnull
+    @Override
+    public Set<Event> getNextEvents(@Nonnull LocalDateTime to) {
+        return events.values().stream()
+                .filter(event ->
+                        !event.getAirDates().subSet(LocalDateTime.now(), true, to, true).isEmpty())
+                .collect(Collectors.toSet());
     }
 }
