@@ -48,4 +48,11 @@
         <property name="email" value="pl_london@gmail.com"/>
     </bean>
 
+    <bean id="user5" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="5"/>
+        <property name="firstName" value="Anna"/>
+        <property name="lastName" value="Malinowska"/>
+        <property name="email" value="AnMal@gmail.com"/>
+    </bean>
+
 </beans>

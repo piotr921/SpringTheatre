@@ -18,12 +18,21 @@ public class UserServiceImplTest {
     }
 
     @Test
+    public void shouldInitalizeServiceWithProperNumberOfUsers() {
+        // Given
+        UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
+
+        // Then
+        Assert.assertEquals(4, service.getAll().size());
+    }
+
+    @Test
     public void shouldGetUserById() {
         // Given
         UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
 
         // When
-                User getUser = service.getById(1L);
+        User getUser = service.getById(1L);
 
         // Then
         Assert.assertEquals(getUser.getFirstName(), "Jan");
@@ -32,11 +41,45 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void shouldInitalizeServiceWithProperNumberOfUsers() {
+    public void shouldGetUserByEmail() {
         // Given
         UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
 
+        // When
+        User getUser = service.getUserByEmail("ivan89@gmail.com");
+
         // Then
-        Assert.assertEquals(4, service.getAll().size());
+        Assert.assertEquals(getUser.getFirstName(), "Ivan");
+        Assert.assertEquals(getUser.getLastName(), "Novak");
+        Assert.assertEquals(getUser.getEmail(), "ivan89@gmail.com");
+    }
+
+    @Test
+    public void shouldRemoveUser() {
+        // Given
+        UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
+        User toRemove = context.getBean("user3", User.class);
+
+        // When
+        service.remove(toRemove);
+
+        // Then
+        Assert.assertEquals(3, service.getAll().size());
+    }
+
+    @Test
+    public void shouldAddUser() {
+        // Given
+        UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
+        User toAdd = context.getBean("user5", User.class);
+
+        // When
+        service.save(toAdd);
+
+        // Then
+        Assert.assertEquals(5, service.getAll().size());
+        Assert.assertEquals(service.getById(5L).getFirstName(), "Anna");
+        Assert.assertEquals(service.getById(5L).getLastName(), "Malinowska");
+        Assert.assertEquals(service.getById(5L).getEmail(), "AnMal@gmail.com");
     }
 }
