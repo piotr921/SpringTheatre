@@ -8,6 +8,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.impl.UserServiceImpl;
 
+import static org.junit.Assert.*;
+
 public class UserServiceImplTest {
 
     private  ConfigurableApplicationContext context;
@@ -23,7 +25,7 @@ public class UserServiceImplTest {
         UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
 
         // Then
-        Assert.assertEquals(4, service.getAll().size());
+        assertEquals(4, service.getAll().size());
     }
 
     @Test
@@ -35,9 +37,9 @@ public class UserServiceImplTest {
         User getUser = service.getById(1L);
 
         // Then
-        Assert.assertEquals(getUser.getFirstName(), "Jan");
-        Assert.assertEquals(getUser.getLastName(), "Kowalski");
-        Assert.assertEquals(getUser.getEmail(), "jan_kow@gmail.com");
+        assertEquals(getUser.getFirstName(), "Jan");
+        assertEquals(getUser.getLastName(), "Kowalski");
+        assertEquals(getUser.getEmail(), "jan_kow@gmail.com");
     }
 
     @Test
@@ -49,9 +51,9 @@ public class UserServiceImplTest {
         User getUser = service.getUserByEmail("ivan89@gmail.com");
 
         // Then
-        Assert.assertEquals(getUser.getFirstName(), "Ivan");
-        Assert.assertEquals(getUser.getLastName(), "Novak");
-        Assert.assertEquals(getUser.getEmail(), "ivan89@gmail.com");
+        assertEquals(getUser.getFirstName(), "Ivan");
+        assertEquals(getUser.getLastName(), "Novak");
+        assertEquals(getUser.getEmail(), "ivan89@gmail.com");
     }
 
     @Test
@@ -64,7 +66,7 @@ public class UserServiceImplTest {
         service.remove(toRemove);
 
         // Then
-        Assert.assertEquals(3, service.getAll().size());
+        assertEquals(3, service.getAll().size());
     }
 
     @Test
@@ -77,9 +79,9 @@ public class UserServiceImplTest {
         service.save(toAdd);
 
         // Then
-        Assert.assertEquals(5, service.getAll().size());
-        Assert.assertEquals(service.getById(5L).getFirstName(), "Anna");
-        Assert.assertEquals(service.getById(5L).getLastName(), "Malinowska");
-        Assert.assertEquals(service.getById(5L).getEmail(), "AnMal@gmail.com");
+        assertEquals(5, service.getAll().size());
+        assertEquals(service.getById(5L).getFirstName(), "Anna");
+        assertEquals(service.getById(5L).getLastName(), "Malinowska");
+        assertEquals(service.getById(5L).getEmail(), "AnMal@gmail.com");
     }
 }

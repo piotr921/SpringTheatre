@@ -20,6 +20,6 @@
     <bean id="event1" class="ua.epam.spring.hometask.domain.Event">
         <property name="name" value="The Good, the Bad and the Ugly"/>
         <property name="basePrice" value="10"/>
-        <property name="eventRating" value="HIGH"/>
+        <property name="rating" value="HIGH"/>
     </bean>
 </beans>
