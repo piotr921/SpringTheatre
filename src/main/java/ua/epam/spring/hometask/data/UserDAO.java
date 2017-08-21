@@ -1,38 +1,39 @@
 package ua.epam.spring.hometask.data;
 
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.AbstractDomainObjectService;
 import ua.epam.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
-public class UserDAO implements UserService {
+public class UserDAO implements AbstractDomainObjectService<User> {
 
-    private Map<Integer, User> users;
+    private Set<User> users;
 
-    public UserDAO(Map<Integer, User> users) {
+    public UserDAO(Set<User> users) {
         this.users = users;
     }
 
     @Override
     public User save(@Nonnull User object) {
-        Integer key = users.size();
-        users.put(key, object);
+        users.add(object);
         return object;
     }
 
     @Override
     public void remove(@Nonnull User object) {
-        if (users.containsValue(object)) {
+        if (users.contains(object)) {
             users.remove(object);
         }
     }
 
     @Override
     public User getById(@Nonnull Long id) {
-        return users.values().stream()
+        return users.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst().orElse(new User());
     }
@@ -40,14 +41,6 @@ public class UserDAO implements UserService {
     @Nonnull
     @Override
     public Collection<User> getAll() {
-        return users.values();
-    }
-
-    @Nullable
-    @Override
-    public User getUserByEmail(@Nonnull String email) {
-        return users.values().stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst().orElse(null);
+        return users;
     }
 }
