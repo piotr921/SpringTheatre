@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="eventService" class="ua.epam.spring.hometask.impl.EventServiceImpl">
+        <constructor-arg ref="eventDAO"/>
+    </bean>
+
+    <bean id="eventDAO" class="ua.epam.spring.hometask.data.EventDAO">
+        <constructor-arg>
+            <set>
+                <ref bean="event1"/>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="event1" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="The Good, the Bad and the Ugly"/>
+        <property name="basePrice" value="10"/>
+        <property name="eventRating" value="HIGH"/>
+    </bean>
+</beans>
