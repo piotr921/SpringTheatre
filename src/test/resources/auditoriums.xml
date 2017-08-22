@@ -19,25 +19,25 @@
     <bean id="auditorium1" class="ua.epam.spring.hometask.domain.Auditorium">
         <property name="name" value="${small.name}"/>
         <property name="numberOfSeats" value="${small.numberOfSeats}"/>
-        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+        <property name="vipSeats" value="#{'${small.vipSeats}'.split(',')}"/>
     </bean>
 
     <bean id="auditorium2" class="ua.epam.spring.hometask.domain.Auditorium">
         <property name="name" value="${medium.name}"/>
         <property name="numberOfSeats" value="${medium.numberOfSeats}"/>
-        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+        <property name="vipSeats" value="#{'${medium.vipSeats}'.split(',')}"/>
     </bean>
 
     <bean id="auditorium3" class="ua.epam.spring.hometask.domain.Auditorium">
         <property name="name" value="${big.name}"/>
         <property name="numberOfSeats" value="${big.numberOfSeats}"/>
-        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+        <property name="vipSeats" value="#{'${big.vipSeats}'.split(',')}"/>
     </bean>
 
     <bean id="auditorium4" class="ua.epam.spring.hometask.domain.Auditorium">
         <property name="name" value="${exclusive.name}"/>
         <property name="numberOfSeats" value="${exclusive.numberOfSeats}"/>
-        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+        <property name="vipSeats" value="#{'${exclusive.vipSeats}'.split(',')}"/>
     </bean>
 
     <bean id="auditoriumsProperties" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
