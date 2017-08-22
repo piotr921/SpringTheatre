@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="auditoriumService" class=" ua.epam.spring.hometask.impl.AuditoriumServiceImpl">
+        <constructor-arg>
+            <set>
+                <ref bean="auditorium1"/>
+                <ref bean="auditorium2"/>
+                <ref bean="auditorium3"/>
+                <ref bean="auditorium4"/>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="auditorium1" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="${small.name}"/>
+        <property name="numberOfSeats" value="${small.numberOfSeats}"/>
+        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+    </bean>
+
+    <bean id="auditorium2" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="${medium.name}"/>
+        <property name="numberOfSeats" value="${medium.numberOfSeats}"/>
+        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+    </bean>
+
+    <bean id="auditorium3" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="${big.name}"/>
+        <property name="numberOfSeats" value="${big.numberOfSeats}"/>
+        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+    </bean>
+
+    <bean id="auditorium4" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="${exclusive.name}"/>
+        <property name="numberOfSeats" value="${exclusive.numberOfSeats}"/>
+        <!--<property name="vipSeats" value="${auditorium.vipSeats}"/>-->
+    </bean>
+
+    <bean id="auditoriumsProperties" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>file:src/main/resources/small.properties</value>
+                <value>file:src/main/resources/medium.properties</value>
+                <value>file:src/main/resources/big.properties</value>
+                <value>file:src/main/resources/exclusive.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>
