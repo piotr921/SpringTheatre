@@ -2,23 +2,28 @@ package ua.epam.spring.hometask.data;
 
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.service.AbstractDomainObjectService;
-import ua.epam.spring.hometask.service.EventService;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class EventDAO implements AbstractDomainObjectService<Event> {
 
-    Set<Event> events;
+    private Set<Event> events;
+    private List<LocalDateTime> airDates = Arrays.asList(
+            LocalDateTime.of(2017, 9, 1, 12, 0),
+            LocalDateTime.of(2017, 9, 8, 12, 0),
+            LocalDateTime.of(2017, 9, 10, 15, 30));
 
     public EventDAO(Set<Event> events) {
         this.events = events;
+        for (int i = 0; i < airDates.size(); i++) {
+            int finalI = i;
+            events.forEach(event -> event.addAirDateTime(airDates.get(finalI)));
+        }
     }
 
     @Override

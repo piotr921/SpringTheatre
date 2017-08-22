@@ -13,6 +13,8 @@
         <constructor-arg>
             <set>
                 <ref bean="event1"/>
+                <ref bean="event2"/>
+                <ref bean="event3"/>
             </set>
         </constructor-arg>
     </bean>
@@ -21,5 +23,17 @@
         <property name="name" value="The Good, the Bad and the Ugly"/>
         <property name="basePrice" value="10"/>
         <property name="rating" value="HIGH"/>
+    </bean>
+
+    <bean id="event2" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="The Goodfather"/>
+        <property name="basePrice" value="20"/>
+        <property name="rating" value="MID"/>
+    </bean>
+
+    <bean id="event3" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="Scary movie"/>
+        <property name="basePrice" value="5"/>
+        <property name="rating" value="LOW"/>
     </bean>
 </beans>
