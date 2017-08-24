@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import ua.epam.spring.hometask.domain.Auditorium;
+import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.impl.AuditoriumServiceImpl;
 import ua.epam.spring.hometask.impl.BookingServiceImpl;
@@ -27,8 +29,14 @@ import ua.epam.spring.hometask.service.BookingService;
 import ua.epam.spring.hometask.service.EventService;
 import ua.epam.spring.hometask.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -124,7 +132,7 @@ public class BookingServiceImplTest {
         bookingService.bookTickets(tickets);
 
         // Then
-        Assert.assertEquals(1L, ticketRepository.getAll().size());
+        assertEquals(1L, ticketRepository.getAll().size());
     }
 
     @Test
@@ -168,6 +176,48 @@ public class BookingServiceImplTest {
                 eventService.getByName("The Goodfather").getAirDates().first());
 
         // Then
-        Assert.assertEquals(3, purchasedTickets.size());
+        assertEquals(3, purchasedTickets.size());
+    }
+
+    @Test
+    public void shouldCalcTicketsPrice() {
+        // Given
+        Event godfatherMovie = eventService.getByName("The Goodfather");
+        LocalDateTime firstGodfatherShow = godfatherMovie.getAirDates().first();
+
+        NavigableMap<LocalDateTime, Auditorium> auditoriumMap = new TreeMap<>();
+        auditoriumMap.put(firstGodfatherShow, auditoriumService.getByName("Exclusive"));
+
+        godfatherMovie.setAuditoriums(auditoriumMap);
+
+
+        Ticket ticket1 = new Ticket(
+                userService.getById(1L),
+                godfatherMovie,
+                godfatherMovie.getAirDates().first(),
+                15);
+
+        Ticket ticket2 = new Ticket(
+                userService.getById(1L),
+                godfatherMovie,
+                godfatherMovie.getAirDates().first(),
+                16);
+
+        Set<Long> seats = new HashSet<>();
+        seats.add(15L);
+        seats.add(16L);
+
+        Set<Ticket> tickets = new HashSet<>();
+        tickets.add(ticket1);
+        tickets.add(ticket2);
+
+        bookingService.bookTickets(tickets);
+
+        // When
+        double calculatedPrice = bookingService.getTicketsPrice(godfatherMovie, firstGodfatherShow,
+                userService.getById(1L), seats);
+
+        // Then
+        assertEquals("60.0", String.valueOf(calculatedPrice));
     }
 }
