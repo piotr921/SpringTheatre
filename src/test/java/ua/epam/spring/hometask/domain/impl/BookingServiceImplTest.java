@@ -126,4 +126,48 @@ public class BookingServiceImplTest {
         // Then
         Assert.assertEquals(1L, ticketRepository.getAll().size());
     }
+
+    @Test
+    public void shouldGetPurchasedTicketsForEvent() {
+        // Given
+        Ticket ticket1 = new Ticket(
+                userService.getById(1L),
+                eventService.getByName("The Goodfather"),
+                eventService.getByName("The Goodfather").getAirDates().first(),
+                1);
+
+        Ticket ticket2 = new Ticket(
+                userService.getById(1L),
+                eventService.getByName("The Goodfather"),
+                eventService.getByName("The Goodfather").getAirDates().first(),
+                2);
+
+        Ticket ticket3 = new Ticket(
+                userService.getById(1L),
+                eventService.getByName("The Goodfather"),
+                eventService.getByName("The Goodfather").getAirDates().first(),
+                3);
+
+        Ticket ticket4 = new Ticket(
+                userService.getById(1L),
+                eventService.getByName("Scary Movie"),
+                eventService.getByName("Scary Movie").getAirDates().first(),
+                2);
+
+        Set<Ticket> tickets = new HashSet<>();
+        tickets.add(ticket1);
+        tickets.add(ticket2);
+        tickets.add(ticket3);
+        tickets.add(ticket4);
+
+        bookingService.bookTickets(tickets);
+
+        // When
+        Set<Ticket> purchasedTickets = bookingService.getPurchasedTicketsForEvent(
+                eventService.getByName("The Goodfather"),
+                eventService.getByName("The Goodfather").getAirDates().first());
+
+        // Then
+        Assert.assertEquals(3, purchasedTickets.size());
+    }
 }
