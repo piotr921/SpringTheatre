@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.impl.AuditoriumServiceImpl;
+import ua.epam.spring.hometask.repostitory.AuditoriumRepository;
+import ua.epam.spring.hometask.repostitory.AuditoriumRepositoryImpl;
 import ua.epam.spring.hometask.service.AuditoriumService;
 
 import java.util.Arrays;
@@ -28,14 +30,21 @@ public class AuditoriumServiceImplTest {
 
         @Bean
         AuditoriumService auditoriumService() {
+
+            AuditoriumService auditoriumService = new AuditoriumServiceImpl();
+            return auditoriumService;
+        }
+
+        @Bean
+        AuditoriumRepository auditoriumRepository() {
             Set<String> propertyFiles = new HashSet<>();
             propertyFiles.add("src/main/resources/big.properties");
             propertyFiles.add("src/main/resources/medium.properties");
             propertyFiles.add("src/main/resources/small.properties");
             propertyFiles.add("src/main/resources/exclusive.properties");
 
-            AuditoriumService auditoriumService = new AuditoriumServiceImpl(propertyFiles);
-            return auditoriumService;
+            AuditoriumRepository auditoriumRepository = new AuditoriumRepositoryImpl(propertyFiles);
+            return auditoriumRepository;
         }
     }
 
