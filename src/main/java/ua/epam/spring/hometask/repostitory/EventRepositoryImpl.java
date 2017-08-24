@@ -29,14 +29,14 @@ public class EventRepositoryImpl implements EventRepository {
         godfatherAirDates.add(LocalDateTime.of(2017, 9, 10, 15, 0));
 
         NavigableSet<LocalDateTime> godfather3AirDates = new TreeSet<>();
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 2, 20, 15));
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 8, 18, 30));
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 9, 17, 0));
+        godfather3AirDates.add(LocalDateTime.of(2017, 9, 2, 20, 15));
+        godfather3AirDates.add(LocalDateTime.of(2017, 9, 8, 18, 30));
+        godfather3AirDates.add(LocalDateTime.of(2017, 9, 9, 17, 0));
 
         NavigableSet<LocalDateTime> scaryMovieAirDates = new TreeSet<>();
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 1, 20, 15));
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 3, 16, 30));
-        godfatherAirDates.add(LocalDateTime.of(2017, 9, 5, 17, 45));
+        scaryMovieAirDates.add(LocalDateTime.of(2017, 9, 1, 20, 15));
+        scaryMovieAirDates.add(LocalDateTime.of(2017, 9, 3, 16, 30));
+        scaryMovieAirDates.add(LocalDateTime.of(2017, 9, 5, 17, 45));
 
         Event event1 = new Event();
         event1.setName("The Goodfather");
@@ -45,16 +45,16 @@ public class EventRepositoryImpl implements EventRepository {
         event1.setAirDates(godfatherAirDates);
 
         Event event2 = new Event();
-        event1.setName("The Goodfather 3");
-        event1.setBasePrice(17.50);
-        event1.setRating(MID);
-        event1.setAirDates(godfather3AirDates);
+        event2.setName("The Goodfather 3");
+        event2.setBasePrice(17.50);
+        event2.setRating(MID);
+        event2.setAirDates(godfather3AirDates);
 
         Event event3 = new Event();
-        event1.setName("Scary Movie");
-        event1.setBasePrice(12);
-        event1.setRating(LOW);
-        event1.setAirDates(scaryMovieAirDates);
+        event3.setName("Scary Movie");
+        event3.setBasePrice(12);
+        event3.setRating(LOW);
+        event3.setAirDates(scaryMovieAirDates);
 
         events = new HashSet<>();
         events.add(event1);

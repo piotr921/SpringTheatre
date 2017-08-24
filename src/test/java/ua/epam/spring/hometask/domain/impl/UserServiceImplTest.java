@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class UserServiceImplTest {
 
-
     @Configuration
     static class ContextConfiguration {
 
