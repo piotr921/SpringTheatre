@@ -8,15 +8,7 @@ import ua.epam.spring.hometask.service.AuditoriumService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class AuditoriumServiceImpl implements AuditoriumService {
