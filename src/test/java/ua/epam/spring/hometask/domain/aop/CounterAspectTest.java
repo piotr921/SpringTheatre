@@ -134,6 +134,8 @@ public class CounterAspectTest {
     @Test
     public void shouldCountQueryingTicketsPrice() {
         // Given
+        ticketRepository.clear();
+
         Event godfatherMovie = eventService.getByName("The Goodfather");
         LocalDateTime firstGodfatherShow = godfatherMovie.getAirDates().first();
 
@@ -171,7 +173,5 @@ public class CounterAspectTest {
         // Then
         assertEquals(2, aspect.getNoOfBookTicketsOperations("The Goodfather"));
         assertEquals(1, aspect.getNoOfQueryPriceOperations("The Goodfather"));
-
-        ticketRepository.clear();
     }
 }

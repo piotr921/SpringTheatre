@@ -110,6 +110,7 @@ public class BookingServiceImplTest {
     @Test
     public void shouldBookTickets() {
         // Given
+        ticketRepository.clear();
 
         Ticket ticket = new Ticket(
                 userService.getById(1L),
@@ -125,7 +126,6 @@ public class BookingServiceImplTest {
 
         // Then
         assertEquals(1L, ticketRepository.getAll().size());
-        ticketRepository.clear();
     }
 
     @Test
