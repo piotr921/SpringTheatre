@@ -54,6 +54,6 @@ public class CounterAspectTest {
     public void shouldCountGettingEventByName() {
         service.getByName("The Goodfather");
         service.getByName("The Goodfather");
-        Assert.assertEquals(2, aspect.getNoOfGetEventByNameOperations());
+        Assert.assertEquals(2, aspect.getNoOfGetEventByNameOperations("The Goodfather"));
     }
 }

@@ -15,24 +15,25 @@ public class CounterAspect {
         GET_EVENT_BY_NAME
     }
 
-    private Map<Operations, Integer> counter;
+    private Map<Operations, Map<String, Integer>> methodCallCounter;
 
     public CounterAspect() {
-        counter = new HashMap<>();
-        counter.put(Operations.GET_EVENT_BY_NAME, 0);
+        methodCallCounter = new HashMap<>();
+        methodCallCounter.put(Operations.GET_EVENT_BY_NAME, new HashMap<>());
     }
 
     @Before("execution(* ua.epam.spring.hometask.service.EventService.getByName(..)) && args(name)")
     public void countHowManyTimesEventAccessedByName(String name) {
-        incrementCounter(Operations.GET_EVENT_BY_NAME);
+        incrementCounter(Operations.GET_EVENT_BY_NAME, name);
     }
 
-    public int getNoOfGetEventByNameOperations() {
-        return counter.get(Operations.GET_EVENT_BY_NAME);
+    public int getNoOfGetEventByNameOperations(String eventName) {
+        return methodCallCounter.get(Operations.GET_EVENT_BY_NAME).get(eventName);
     }
 
-    private void incrementCounter(Operations operation) {
-        Integer noOfExecutions = counter.get(operation) + 1;
-        counter.put(operation, noOfExecutions);
+    private void incrementCounter(Operations operation, String methodName) {
+        Map<String, Integer> operationCounter = methodCallCounter.get(operation);
+        operationCounter.merge(methodName, 1, (key, value) -> value + 1);
+        methodCallCounter.put(operation, operationCounter);
     }
 }
