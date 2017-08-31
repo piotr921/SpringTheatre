@@ -24,4 +24,9 @@ public class TicketRepositoryImpl implements TicketRepository {
     public Set<Ticket> getAll() {
         return tickets;
     }
+
+    @Override
+    public void clear() {
+        tickets.clear();
+    }
 }

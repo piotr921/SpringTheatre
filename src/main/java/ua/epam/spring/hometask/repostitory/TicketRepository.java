@@ -14,4 +14,6 @@ public interface TicketRepository {
     void addTickets(Collection<Ticket> tickets);
 
     Set<Ticket> getAll();
+
+    void clear();
 }

@@ -1,6 +1,5 @@
 package ua.epam.spring.hometask.domain.impl;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,7 @@ import ua.epam.spring.hometask.impl.AuditoriumServiceImpl;
 import ua.epam.spring.hometask.impl.BookingServiceImpl;
 import ua.epam.spring.hometask.impl.EventServiceImpl;
 import ua.epam.spring.hometask.impl.UserServiceImpl;
-import ua.epam.spring.hometask.repostitory.AuditoriumRepository;
-import ua.epam.spring.hometask.repostitory.AuditoriumRepositoryImpl;
-import ua.epam.spring.hometask.repostitory.EventRepository;
-import ua.epam.spring.hometask.repostitory.EventRepositoryImpl;
-import ua.epam.spring.hometask.repostitory.TicketRepository;
-import ua.epam.spring.hometask.repostitory.TicketRepositoryImpl;
-import ua.epam.spring.hometask.repostitory.UserRepository;
-import ua.epam.spring.hometask.repostitory.UserRepositoryImpl;
+import ua.epam.spring.hometask.repostitory.*;
 import ua.epam.spring.hometask.service.AuditoriumService;
 import ua.epam.spring.hometask.service.BookingService;
 import ua.epam.spring.hometask.service.EventService;
@@ -31,12 +23,11 @@ import ua.epam.spring.hometask.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -119,6 +110,7 @@ public class BookingServiceImplTest {
     @Test
     public void shouldBookTickets() {
         // Given
+
         Ticket ticket = new Ticket(
                 userService.getById(1L),
                 eventService.getByName("The Goodfather"),
@@ -133,6 +125,7 @@ public class BookingServiceImplTest {
 
         // Then
         assertEquals(1L, ticketRepository.getAll().size());
+        ticketRepository.clear();
     }
 
     @Test
