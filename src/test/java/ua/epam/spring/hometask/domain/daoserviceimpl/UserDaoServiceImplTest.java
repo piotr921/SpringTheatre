@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.domain.daoserviceimpl;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,7 @@ import ua.epam.spring.hometask.service.UserService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -78,15 +80,19 @@ public class UserDaoServiceImplTest {
     @Before
     public void before() throws SQLException {
         Resource createTableScript = new ClassPathResource("createUsersTable.sql");
+        Resource fillTableScript = new ClassPathResource("fillUsersTable.sql");
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(createTableScript);
+        populator.addScript(fillTableScript);
         populator.populate(dataSource.getConnection());
-        User user = new User();
-        user.setFirstName("Jan");
-        user.setLastName("Kowalski");
-        user.setEmail("jan_kow@gmail.com");
-        user.setId(1L);
-        userService.save(user);
+    }
+
+    @After
+    public void after() throws SQLException {
+        Resource dropTableScript = new ClassPathResource("dropUsersTable.sql");
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.addScript(dropTableScript);
+        populator.populate(dataSource.getConnection());
     }
 
     @Test
@@ -98,5 +104,55 @@ public class UserDaoServiceImplTest {
         assertNotNull(getUser);
         assertEquals("Jan", getUser.getFirstName());
         assertEquals("Kowalski", getUser.getLastName());
+    }
+
+    @Test
+    public void shouldGetAllUsers() {
+        // When
+        Collection<User> allUsers = userService.getAll();
+
+        // Then
+        assertNotNull(allUsers);
+        assertEquals(3, allUsers.size());
+    }
+
+    @Test
+    public void shouldGetUserById(){
+        // When
+        User getUser = userService.getById(2L);
+
+        // Then
+        assertNotNull(getUser);
+        assertEquals("John", getUser.getFirstName());
+        assertEquals("Smith", getUser.getLastName());
+        assertEquals("jSmith@gmail.com", getUser.getEmail());
+    }
+
+    @Test
+    public void shouldRemoveUser() {
+        // Given
+        User toRemove = userService.getById(1L);
+
+        // When
+        userService.remove(toRemove);
+
+        // Then
+        assertEquals(2, userService.getAll().size());
+    }
+
+    @Test
+    public void shouldAddUser(){
+        // Given
+        User toAdd = new User();
+        toAdd.setId(4L);
+        toAdd.setFirstName("Adam");
+        toAdd.setLastName("Nowak");
+        toAdd.setEmail("aNow@gmail.com");
+
+        // When
+        userService.save(toAdd);
+
+        // Then
+        assertEquals(4, userService.getAll().size());
     }
 }

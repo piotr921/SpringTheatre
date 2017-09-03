@@ -1,6 +1,7 @@
 package ua.epam.spring.hometask.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ua.epam.spring.hometask.domain.User;
 
@@ -41,8 +42,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(@Nonnull Long id) {
-        return jdbcTemplate.queryForObject(GET_USER_BY_ID_QUERY, new Object[]{id}, User.class);
+        User user = (User) jdbcTemplate.queryForObject(
+                GET_USER_BY_ID_QUERY,
+                new Object[]{id},
+                new BeanPropertyRowMapper<>(User.class));
+        return user;
     }
+
+//    Customer customer = (Customer)getJdbcTemplate().queryForObject(
+//            sql, new Object[] { custId },
+//            new BeanPropertyRowMapper(Customer.class));
+//
+//	return customer;
 
     @Nonnull
     @Override
