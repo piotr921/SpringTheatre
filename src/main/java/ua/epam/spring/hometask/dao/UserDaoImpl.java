@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDaoImpl implements UserDao {
+
     private JdbcTemplate jdbcTemplate;
     private final String SAVE_USER_QUERY = "INSERT INTO users (id, firstname, lastname, email) VALUES (? ,? ,? ,?)";
     private final String REMOVE_USER_QUERY = "DELETE FROM users WHERE id = ?";
@@ -48,12 +49,6 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<>(User.class));
         return user;
     }
-
-//    Customer customer = (Customer)getJdbcTemplate().queryForObject(
-//            sql, new Object[] { custId },
-//            new BeanPropertyRowMapper(Customer.class));
-//
-//	return customer;
 
     @Nonnull
     @Override
