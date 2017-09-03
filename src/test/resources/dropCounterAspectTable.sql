@@ -1,1 +1,1 @@
-drop table if EXIST COUNTERASPECTS;
+drop table if EXISTS COUNTERASPECTS;

@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Component
 @Aspect
-public class CounterAspect {
+public class CounterDaoAspectService {
 
     @Autowired
     CounterAspectDao aspectDao;

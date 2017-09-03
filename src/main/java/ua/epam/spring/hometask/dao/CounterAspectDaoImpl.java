@@ -9,7 +9,7 @@ public class CounterAspectDaoImpl implements CounterAspectDao {
 
     private JdbcTemplate jdbcTemplate;
     private final String ADD_OCCURRENCE = "INSERT INTO counteraspects (eventtype, eventname) VALUES (? ,?)";
-    private final String COUNT_OCCURRENCES = "SELECT COUNT * FROM counteraspects WHERE eventtype = ? AND eventname = ?";
+    private final String COUNT_OCCURRENCES = "SELECT COUNT (*) FROM counteraspects WHERE eventtype = ? AND eventname = ?";
 
     @Autowired
     public CounterAspectDaoImpl(DataSource dataSource) {
